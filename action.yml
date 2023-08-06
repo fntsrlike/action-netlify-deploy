@@ -1,6 +1,6 @@
 ---
-name: Netlify Deploy
-author: Jo Colina
+name: Netlify Deploy Improved
+author: Jo Colina, Yuehu Lin
 description: Netlify Deploy
 inputs:
   NETLIFY_AUTH_TOKEN:
