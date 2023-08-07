@@ -51,7 +51,6 @@ function setOutput () {
   echo "${key}<<$EOF" >> "$GITHUB_OUTPUT"
   echo "${value}" >> "$GITHUB_OUTPUT"
   echo "$EOF" >> "$GITHUB_OUTPUT"
-
 }
 
 NETLIFY_OUTPUT=$(echo "$OUTPUT")

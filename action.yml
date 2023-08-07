@@ -68,8 +68,6 @@ runs:
           INSTALL_COMMAND: ${{ inputs.install_command }}
           BUILD_COMMAND: ${{ inputs.build_command }}
           DEPLOY_ALIAS: ${{ inputs.deploy_alias }}
-
-      
 branding:
   icon: activity
   color: blue
