@@ -18,7 +18,7 @@ jobs:
   deploy:
     name: 'Deploy to Netlify'
     steps:
-      - uses: jsmrcaga/action-netlify-deploy@v2.0.0
+      - uses: fntsrlike/action-netlify-deploy@v2
         with:
           NETLIFY_AUTH_TOKEN: ${{ secrets.MY_TOKEN_SECRET }}
           NETLIFY_DEPLOY_TO_PROD: true
@@ -85,7 +85,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: jsmrcaga/action-netlify-deploy@master
+      - uses: fntsrlike/action-netlify-deploy@v2
         with:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
@@ -109,7 +109,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: jsmrcaga/action-netlify-deploy@v2.0.0
+      - uses: fntsrlike/action-netlify-deploy@v2
         with:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
@@ -129,7 +129,7 @@ name: 'Netlify Previews'
 
 on:
   push:
-    branches-ignore: 
+    branches-ignore:
       - master
 
 jobs:
@@ -142,12 +142,12 @@ jobs:
 
       # Sets the branch name as environment variable
       - uses: nelonoel/branch-name@v1.0.1
-      - uses: jsmrcaga/action-netlify-deploy@master
+      - uses: fntsrlike/action-netlify-deploy@v2
         with:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           deploy_alias: ${{ env.BRANCH_NAME }}
-      
+
       # Creates a status check with link to preview
       - name: Status check
         uses: Sibz/github-status-action@v1.1.1
@@ -164,7 +164,7 @@ In case of already having the deployment ready data - we can easily skip the nvm
 
 ```
 - name: Deploy to Netlify
-  uses: jsmrcaga/action-netlify-deploy@v2.0.0
+  uses: fntsrlike/action-netlify-deploy@v2
   with:
     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
