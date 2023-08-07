@@ -39,23 +39,27 @@ OUTPUT=$(sh -c "$COMMAND")
 URL_REGEX='(http|https)://[a-zA-Z0-9./?=_-]*'
 
 # Set outputs
+function getRandomString () {
+  echo $(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+}
+
+function setOutput () {
+  local key=$1
+  local value=$2
+  local EOF="$(getRandomString)"
+
+  echo "${key}<<$EOF" >> "$GITHUB_OUTPUT"
+  echo "${value}" >> "$GITHUB_OUTPUT"
+  echo "$EOF" >> "$GITHUB_OUTPUT"
+
+}
+
 NETLIFY_OUTPUT=$(echo "$OUTPUT")
 NETLIFY_PREVIEW_URL=$(echo "$OUTPUT" | grep -Eo "Unique (draft|deploy) URL: +$URL_REGEX" | grep -Eo $URL_REGEX)
 NETLIFY_LOGS_URL=$(echo "$OUTPUT" | grep -Eo "Build logs: +$URL_REGEX" | grep -Eo $URL_REGEX)
 NETLIFY_LIVE_URL=$(echo "$OUTPUT" | grep -Eo "Website URL: +$URL_REGEX" | grep -Eo $URL_REGEX)
 
-echo "NETLIFY_OUTPUT<<EOF" >> "$GITHUB_OUTPUT"
-echo "$NETLIFY_OUTPUT" >> "$GITHUB_OUTPUT"
-echo "EOF" >> "$GITHUB_OUTPUT"
-
-echo "NETLIFY_PREVIEW_URL<<EOF" >> "$GITHUB_OUTPUT"
-echo "$NETLIFY_PREVIEW_URL" >> "$GITHUB_OUTPUT"
-echo "EOF" >> "$GITHUB_OUTPUT"
-
-echo "NETLIFY_LOGS_URL<<EOF" >> "$GITHUB_OUTPUT"
-echo "$NETLIFY_LOGS_URL" >> "$GITHUB_OUTPUT"
-echo "EOF" >> "$GITHUB_OUTPUT"
-
-echo "NETLIFY_LIVE_URL<<EOF" >> "$GITHUB_OUTPUT"
-echo "$NETLIFY_LIVE_URL" >> "$GITHUB_OUTPUT"
-echo "EOF" >> "$GITHUB_OUTPUT"
+setOutput "NETLIFY_OUTPUT" "$OUTPUT"
+setOutput "NETLIFY_PREVIEW_URL" "$NETLIFY_PREVIEW_URL"
+setOutput "NETLIFY_LOGS_URL" "$NETLIFY_LOGS_URL"
+setOutput "NETLIFY_LIVE_URL" "$NETLIFY_LIVE_URL"
